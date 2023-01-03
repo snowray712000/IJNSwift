@@ -10,7 +10,7 @@ import FMDB
 
 // sample
 public class TestDb : EasySQLiteBase {
-    override var pathToDatabase: URL! {
+    public override var pathToDatabase: URL! {
         get {
             let r1 = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             return r1.appendingPathComponent("test/bible_little.db")
@@ -21,10 +21,10 @@ public class TestDb : EasySQLiteBase {
 
 // 建立自己的 singleton 變數 static var shared: XXXXX = XXXXXX ()
 // override pathToDatabase getter
-public class EasySQLiteBase: NSObject {
+open class EasySQLiteBase: NSObject {
     
     // 因為 static 初始值要給，就沒辦法用了，所以將其變為 override getter
-    var pathToDatabase: URL! {
+    open var pathToDatabase: URL! {
         get {
             let r1 = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let r2 = r1[0].appendingPathComponent("test", isDirectory: true)
@@ -37,7 +37,7 @@ public class EasySQLiteBase: NSObject {
     public var lastErrorMessage:String!
     
     // static let shared :EasySQLite = EasySQLite()
-    override init(){
+    public override init(){
         super.init()
         
         if isPathExist(){
